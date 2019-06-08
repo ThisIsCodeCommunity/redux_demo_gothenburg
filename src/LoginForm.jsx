@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import axios from 'axios'
-
+import { setEmail, setPassword, asyncLogin } from './state/actions/authentication';
 
 class LoginForm extends Component {
 
   handleLogin() {
-    axios.post('https://reqres.in/api/login', {
-      email: this.props.user_credentials.email,
-      password: this.props.user_credentials.password
-    })
-      .then((response) => {
-        this.props.dispatch({ type: 'AUTHENTICATE', payload: response.data.token })
-        this.forceUpdate();
-      })
+    this.props.asyncLogin(this.props.user_credentials.email, this.props.user_credentials.password);
+    this.forceUpdate();
   }
 
   render() {
@@ -25,20 +19,17 @@ class LoginForm extends Component {
             <input
               type="text"
               placeholder='email'
-              onBlur={(event) => { this.props.dispatch({ type: 'SET_EMAIL', payload: event.target.value }) }} />
+              onBlur={(event) => { this.props.setEmail(event.target.value) }} />
             <input
               type="password"
               placeholder='password'
-              onBlur={(event) => { this.props.dispatch({ type: 'SET_PASSWORD', payload: event.target.value }) }} />
+              onBlur={(event) => { this.props.setPassword(event.target.value) }} />
 
             <button
               onClick={this.handleLogin.bind(this)}
             >Register</button>
           </>
-
         }
-
-
       </>
     );
   }
@@ -51,6 +42,6 @@ const mapStateToProps = state => {
 }
 
 export default connect(
-  mapStateToProps
-)
-  (LoginForm);
+  mapStateToProps,
+  { setEmail, setPassword, asyncLogin }
+)(LoginForm);
