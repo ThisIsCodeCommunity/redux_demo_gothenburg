@@ -7,10 +7,15 @@ function App(props) {
   return (
     <>
       <h1>{props.greeting}</h1>
-      <button onClick={() => props.dispatch({ type: 'CHANGE_GREETING', greeting: 'Hello Venus' })}>
+      <input
+        type='text'
+        placeholder='Your greeting'
+        onBlur={(event) => props.dispatch({type: 'PROPOSE_GREETING', proposed_greeting: event.target.value})}
+      />
+      <button onClick={() => props.dispatch({ type: 'CHANGE_GREETING'})}>
         Change greeting
       </button>
-      <button onClick={() => props.dispatch({type: 'RESET'})}>
+      <button onClick={() => props.dispatch({ type: 'RESET' })}>
         Reset
       </button>
     </>
@@ -19,7 +24,7 @@ function App(props) {
 
 const mapStateToProps = (state) => {
   return {
-    greeting: state.greeting, 
+    greeting: state.greetingReducer.greeting,
     dispatch: state.dispatch
   }
 }

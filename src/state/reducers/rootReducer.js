@@ -1,15 +1,9 @@
-import initialState from '../store/initialState'
+// import initialState from '../store/initialState'
+import { combineReducers} from 'redux'
+import greetingReducer from './greetingReducer'
 
-const rootReducer = (state = initialState, action) => {
-  if (action.type === 'CHANGE_GREETING') {
-    return {
-      ...state, greeting: action.greeting
-    }
-  } else if (action.type === 'RESET') {
-    return initialState
-  } else {
-    return state
-  }
-}
+const rootReducer = combineReducers({
+  greetingReducer
+})
 
 export default rootReducer
