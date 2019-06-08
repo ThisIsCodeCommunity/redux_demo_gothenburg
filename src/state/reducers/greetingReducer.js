@@ -1,6 +1,6 @@
 import initialState from '../store/initialState'
 
-const greetingReducer = (state = initialState, action) => {
+const greetingReducer = (state = initialState.greetings, action) => {
   switch (action.type) {
     case 'CHANGE_GREETING':
       let newGreeting = state.proposed_greeting || 'No one to greet'
